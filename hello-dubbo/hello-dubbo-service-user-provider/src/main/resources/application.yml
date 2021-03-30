@@ -1,0 +1,60 @@
+# Spring boot application
+spring:
+  application:
+    name: hello-dubbo-service-user-provider
+
+# UserService service version
+user:
+  service:
+    version: 1.0
+
+# Dubbo Config properties
+dubbo:
+  ## Base packages to scan Dubbo Component£º@com.alibaba.dubbo.config.annotation.Service
+  scan:
+    basePackages: com.example.hello.dubbo.service.user.provider.apimpl
+  ## ApplicationConfig Bean
+  application:
+    id: hello-dubbo-service-user-provider
+    name: hello-dubbo-service-user-provider
+    qos-port: 22222
+    qos-enable: true
+  ## ProtocolConfig Bean
+  protocol:
+    id: dubbo
+    name: dubbo
+    port: 12346
+    status: server
+    serialization: kryo
+#    optimizer: com.example.hello.dubbo.service.user.provider.apimpl.SerializationOptimizerImpl
+  ## RegistryConfig Bean
+  registry:
+    id: zookeeper
+    address: zookeeper://192.168.43.110:2181?backup=192.168.43.111:2181,192.168.43.115:2181
+  ## ¸ºÔØ¾ùºâ
+  provider:
+    loadbalance: roundrobin
+
+# Enables Dubbo All Endpoints
+management:
+  endpoint:
+    dubbo:
+      enabled: true
+    dubbo-shutdown:
+      enabled: true
+    dubbo-configs:
+      enabled: true
+    dubbo-services:
+      enabled: true
+    dubbo-references:
+      enabled: true
+    dubbo-properties:
+      enabled: true
+  # Dubbo Health
+  health:
+    dubbo:
+      status:
+        ## StatusChecker Name defaults (default : "memory", "load" )
+        defaults: memory
+        ## StatusChecker Name extras (default : empty )
+        extras: load,threadpool
